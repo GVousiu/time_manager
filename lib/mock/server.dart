@@ -4,7 +4,7 @@ import 'package:todo_list/utils/global.dart';
 import 'package:todo_list/models/Todo.dart';
 
 class Server {
-  /// 获取待办事项列表
+  /// get the list of todos
   static List<TodoItemModel> getTodoListByDone(String status) {
     var _todoListJson = Global.getTodoList();
     List<TodoItemModel> _todoList = TodoItemModel.listFromJson(jsonDecode(_todoListJson));
@@ -22,7 +22,7 @@ class Server {
     }
   }
 
-  /// 改变待办事项的状态值
+  /// change the status of todo
   static changeTodoStatus(TodoItemModel item) {
     var _todoListJson = Global.getTodoList();
     List<TodoItemModel> _todoList = TodoItemModel.listFromJson(jsonDecode(_todoListJson));
@@ -34,7 +34,7 @@ class Server {
     Global.saveTodoList(jsonEncode(_todoList));
   }
 
-  /// 修改待办事项的详情
+  /// change details of dodo
   static Future changeTodoDetails(TodoItemModel item) {
     var _todoListJson = Global.getTodoList();
     List<TodoItemModel> _todoList = TodoItemModel.listFromJson(jsonDecode(_todoListJson));
@@ -46,17 +46,17 @@ class Server {
     return Global.saveTodoList(jsonEncode(_todoList));
   }
 
-  /// 增加待办事项
-  static addTodo({ @required String title }) {
+  /// add todo
+  static addTodo({ @required String title, String detail }) {
     int id = Global.getTodoId() + 1;
-    TodoItemModel item = TodoItemModel(id: id, title: title, done: false);
+    TodoItemModel item = TodoItemModel(id: id, title: title, done: false, detail: detail);
     var _todoListJson = Global.getTodoList();
     List<TodoItemModel> _todoList = TodoItemModel.listFromJson(jsonDecode(_todoListJson));
     _todoList.add(item);
     Global.addTodo(jsonEncode(_todoList), id);
   }
 
-  /// 删除待办事项
+  /// delete todo
   static Future deleteTodo({ @required TodoItemModel item }) {
     var _todoListJson = Global.getTodoList();
     List<TodoItemModel> _todoList = TodoItemModel.listFromJson(jsonDecode(_todoListJson));

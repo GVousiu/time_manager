@@ -18,13 +18,14 @@ class _AddTodoState extends State<AddTodoPage> {
   /// 悬浮按钮的回调方法
   handlePressSendBtn(BuildContext context) {
     String title = this._titleController.text;
+    String detail = this._detailController.text;
     if (_formKey.currentState.validate()) {
-      Server.addTodo(title: title);
+      Server.addTodo(title: title, detail: detail);
       Navigator.pop(context);
     }
   }
 
-  /// 输入框的验证：非空校验
+  /// to valid the title input: required
   validateInputNotEmpty(value) {
     if (isEmpty(value)) {
       return '请填写';
