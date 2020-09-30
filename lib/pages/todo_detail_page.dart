@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:todo_list/mock/server.dart';
 import 'package:todo_list/models/Todo.dart';
 import 'package:todo_list/style/font.dart';
+import 'package:todo_list/style/style.dart';
 
 class TodoDetailPage extends StatefulWidget {
   final TodoItemModel item;
@@ -57,10 +58,8 @@ class _TodoDetailState extends State<TodoDetailPage> {
           keyboardType: TextInputType.multiline,
           maxLines: 10,
           minLines: 1,
-          decoration: InputDecoration(
+          decoration: INPUT_DECORATION.copyWith(
             hintText: '描述',
-            contentPadding: EdgeInsets.all(10.0),
-            border: InputBorder.none,
           ),
         ),
       ),
