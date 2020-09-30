@@ -41,6 +41,7 @@ class Server {
     _todoList.forEach((element) {
       if (item.id == element.id) {
         element.detail = item.detail;
+        element.title = item.title;
       }
     });
     return Global.saveTodoList(jsonEncode(_todoList));

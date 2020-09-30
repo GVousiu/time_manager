@@ -2,7 +2,7 @@
 import 'package:flutter/cupertino.dart';
 
 class TodoItemModel {
-  final String title;
+  String title;
   String detail;
   final int id;
   bool done;
