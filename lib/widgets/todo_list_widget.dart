@@ -31,7 +31,7 @@ class _TodoListState extends State<TodoListWidget> {
     this.getTodoList();
   }
 
-  /// 获取待办列表
+  /// fetch list
   getTodoList() {
     var list = Server.getTodoListByDone(widget.status);
     setState(() {
@@ -93,14 +93,25 @@ class _TodoListState extends State<TodoListWidget> {
     );
   }
 
+  // called when user want to refresh the list
+  Future handleRefresh() {
+    this.getTodoList();
+    return Future(() {
+      this.getTodoList();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return todoList == null || todoList.length == 0
       ? EmptyWidget(message: widget.emptyMessage)
-      : ListView.separated(
-        itemBuilder: _buildItem,
-        separatorBuilder: _buildSeparator,
-        itemCount: todoList.length,
+      : RefreshIndicator(
+        child: ListView.separated(
+          itemBuilder: _buildItem,
+          separatorBuilder: _buildSeparator,
+          itemCount: todoList.length,
+        ),
+        onRefresh: this.handleRefresh,
       );
   }
 }
