@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:todo_list/pages/add_todo_page.dart';
-import 'package:todo_list/widgets/todo_list_widget.dart';
+import 'package:time_manager/pages/add_todo_page.dart';
+import 'package:time_manager/widgets/todo_list_widget.dart';
 
 class HomePage extends StatefulWidget {
   @override

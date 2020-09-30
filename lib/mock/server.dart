@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/cupertino.dart';
-import 'package:todo_list/utils/global.dart';
-import 'package:todo_list/models/Todo.dart';
+import 'package:time_manager/utils/global.dart';
+import 'package:time_manager/models/Todo.dart';
 
 class Server {
   /// get the list of todos

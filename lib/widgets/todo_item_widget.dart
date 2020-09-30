@@ -2,8 +2,8 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:todo_list/models/Todo.dart';
-import 'package:todo_list/style/font.dart';
+import 'package:time_manager/models/Todo.dart';
+import 'package:time_manager/style/font.dart';
 
 class TodoItemWidget extends StatefulWidget {
   final TodoItemModel item;
@@ -65,23 +65,24 @@ class _TodoItemWidgetState extends State<TodoItemWidget> {
             IconButton(
               icon: Icon(widget.item.done ? Icons.check_box : Icons.check_box_outline_blank),
               onPressed: (){ onPressIcon(widget.item); },
-              color: widget.item.done ? Colors.grey : Colors.black,
+              color: widget.item.done ? Color(0xFFBDBDBD) : Color(0xFF757575),
             ),
             /// make the GestureDetector widget has max width
             Expanded(
               child: GestureDetector(
-              onTap: handleOnTop,
-              onTapDown: handleTapDown,
-              onTapCancel: handleTapCancel,
-              child: Text(
-                widget.item.title,
-                style: TEXT_FONT.copyWith(
-                  decoration: widget.item.done ? TextDecoration.lineThrough : TextDecoration.none,
-                  color: widget.item.done ? Colors.grey : Colors.black,
+                onTap: handleOnTop,
+                onTapDown: handleTapDown,
+                onTapCancel: handleTapCancel,
+                child: Text(
+                  widget.item.title,
+                  overflow: TextOverflow.ellipsis,
+                  style: TEXT_FONT.copyWith(
+                    decoration: widget.item.done ? TextDecoration.lineThrough : TextDecoration.none,
+                    color: widget.item.done ? Color(0xFFBDBDBD) : Colors.black,
+                  ),
                 ),
               ),
             ),
-            )
           ],
         ),
       ),

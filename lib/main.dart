@@ -1,8 +1,8 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:todo_list/utils/global.dart';
-import 'package:todo_list/pages/container_page.dart';
+import 'package:time_manager/utils/global.dart';
+import 'package:time_manager/pages/container_page.dart';
 
 void main() {
   /**

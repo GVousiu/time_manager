@@ -1,11 +1,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:quiver/strings.dart';
-import 'package:todo_list/mock/server.dart';
-import 'package:todo_list/style/font.dart';
-import 'package:todo_list/style/style.dart';
+import 'package:time_manager/mock/server.dart';
+import 'package:time_manager/style/font.dart';
+import 'package:time_manager/style/style.dart';
 
 class AddTodoPage extends StatefulWidget {
+  final String title;
+  final String detail;
+
+  AddTodoPage({
+    this.title = '',
+    this.detail = '',
+  });
+
   @override
   _AddTodoState createState() => _AddTodoState();
 }
@@ -14,6 +22,13 @@ class _AddTodoState extends State<AddTodoPage> {
   final _titleController = new TextEditingController();
   final _detailController = new TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  @override
+  initState() {
+    super.initState();
+    this._titleController.text = widget.title;
+    this._detailController.text = widget.detail;
+  }
 
   /// 悬浮按钮的回调方法
   handlePressSendBtn(BuildContext context) {
@@ -43,7 +58,7 @@ class _AddTodoState extends State<AddTodoPage> {
         decoration: INPUT_DECORATION.copyWith(
           hintText: '描述',
         ),
-        maxLines: 10,
+        maxLines: null,
         minLines: 1,
       ),
     );
@@ -58,11 +73,12 @@ class _AddTodoState extends State<AddTodoPage> {
       ),
       controller: _titleController,
       autofocus: true,
+      maxLengthEnforced: true,
       decoration: INPUT_DECORATION.copyWith(
         hintText: '准备做什么？',
       ),
       validator: (value) => this.validateInputNotEmpty(value),
-      maxLines: 1,
+      maxLines: null,
       minLines: 1,
     );
   }

@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:todo_list/constants/navigator.dart';
-import 'package:todo_list/pages/done_list_page.dart';
-import 'package:todo_list/pages/home_page.dart';
-import 'package:todo_list/style/font.dart';
+import 'package:time_manager/constants/navigator.dart';
+import 'package:time_manager/pages/done_list_page.dart';
+import 'package:time_manager/pages/home_page.dart';
+import 'package:time_manager/style/font.dart';
 
 /// the container of the whole app, including bottom tab bar
 class ContainerPage extends StatefulWidget {

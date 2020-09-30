@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:todo_list/mock/server.dart';
-import 'package:todo_list/models/Todo.dart';
-import 'package:todo_list/style/font.dart';
-import 'package:todo_list/style/style.dart';
+import 'package:time_manager/mock/server.dart';
+import 'package:time_manager/models/Todo.dart';
+import 'package:time_manager/style/font.dart';
+import 'package:time_manager/style/style.dart';
 
 class TodoDetailPage extends StatefulWidget {
   final TodoItemModel item;
@@ -56,7 +56,7 @@ class _TodoDetailState extends State<TodoDetailPage> {
           style: TEXT_FONT,
           controller: this._detailTextController,
           keyboardType: TextInputType.multiline,
-          maxLines: 10,
+          maxLines: null,
           minLines: 1,
           decoration: INPUT_DECORATION.copyWith(
             hintText: '描述',

@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 
 /// app normal text style
 const TEXT_FONT = TextStyle(
-  fontSize: 18.0,
+  fontSize: 16.0,
+  height: 1.5,
+  letterSpacing: 0.5,
 );
 
 /// error info text style

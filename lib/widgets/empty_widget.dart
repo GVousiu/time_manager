@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:todo_list/constants/contants.dart';
-import 'package:todo_list/style/font.dart';
-import 'package:todo_list/utils/screen_utils.dart';
+import 'package:time_manager/constants/contants.dart';
+import 'package:time_manager/style/font.dart';
+import 'package:time_manager/utils/screen_utils.dart';
 
 class EmptyWidget extends StatelessWidget {
   final String message;

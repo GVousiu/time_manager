@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:todo_list/models/Todo.dart';
+import 'package:time_manager/models/Todo.dart';
 
 class Global {
   /// app本地存储内容，非持久性

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:todo_list/style/font.dart';
+import 'package:time_manager/style/font.dart';
 
 const INPUT_DECORATION = InputDecoration(
   errorStyle: ERROR_TEXT_FONT,
