@@ -63,6 +63,16 @@ class _TodoListState extends State<TodoListWidget> {
     });
   }
 
+  handleSlideItem(TodoItemModel item, DismissDirection direction) {
+    /// slide item from left to right, will change item's status
+    /// slide item from right to left, will delete item
+    if (direction == DismissDirection.endToStart) {
+      this.deleteItem(item);
+    } else if (direction == DismissDirection.startToEnd) {
+      this.onChangeStatus(item);
+    }
+  }
+
   /// 分隔符
   Widget _buildSeparator(BuildContext context, int index) {
     return Divider(
@@ -79,7 +89,7 @@ class _TodoListState extends State<TodoListWidget> {
       item: TodoItemModel.fromJson(jsonDecode(json.encode(item))),
       onPressIcon: () { onChangeStatus(item); },
       onTapItem: () { viewDetail(context, item); },
-      handleSlide: () { deleteItem(item); },
+      handleSlide: (DismissDirection direction) { handleSlideItem(item, direction); },
     );
   }
 

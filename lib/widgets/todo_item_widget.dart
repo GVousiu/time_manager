@@ -93,14 +93,28 @@ class _TodoItemWidgetState extends State<TodoItemWidget> {
   Widget _buildBackground() {
     return Container(
       color: Color(0xFFEEEEEE),
+      child: Icon(
+        widget.item.done ? Icons.check_box_outline_blank : Icons.check_box,
+        color: Color(0xFFBDBDBD),
+      ),
+      alignment: Alignment.centerLeft,
+      padding: EdgeInsets.only(left: 15.0),
+    );
+  }
+
+  Widget _buildSecondaryBackground() {
+    return Container(
+      color: Color(0xFFEEEEEE),
       child: Icon(Icons.delete, color: Colors.red),
-      alignment: Alignment.center,
+      alignment: Alignment.centerRight,
+      padding: EdgeInsets.only(right: 15.0),
     );
   }
 
   /// delete item in storage
-  handleDismissed(_) {
-    widget.handleSlide();
+  handleDismissed(DismissDirection direction) {
+    widget.handleSlide(direction);
+    // print(direction);
   }
 
   @override
@@ -108,8 +122,9 @@ class _TodoItemWidgetState extends State<TodoItemWidget> {
     return Dismissible(
       key: new Key(jsonEncode(widget.item)),
       onDismissed: this.handleDismissed,
-      direction: DismissDirection.endToStart,
+      // direction: DismissDirection.endToStart,
       background: this._buildBackground(),
+      secondaryBackground: this._buildSecondaryBackground(),
       child: this._buildTodoContent(),
     );
   }
