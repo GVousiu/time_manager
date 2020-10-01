@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:quiver/strings.dart';
-import 'package:time_manager/mock/server.dart';
+import 'package:time_manager/logic/todo_logic.dart';
 import 'package:time_manager/models/Todo.dart';
 import 'package:time_manager/style/font.dart';
 import 'package:time_manager/style/style.dart';
@@ -35,7 +35,7 @@ class _TodoDetailState extends State<TodoDetailPage> {
     /// make it feel like auto save
     widget.item.detail = this._detailTextController.text;
     widget.item.title = this._titleTextController.text;
-    Server.changeTodoDetails(widget.item).then((value) {
+    TodoLogic.changeTodoDetail(widget.item).then((_) {
       Navigator.pop(context);
     });
   }

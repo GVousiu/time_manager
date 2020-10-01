@@ -25,6 +25,13 @@ class TodoItemWidget extends StatefulWidget {
 class _TodoItemWidgetState extends State<TodoItemWidget> {
   /// 用户按住不放是有个背景颜色的强调作用
   bool isTapOn = false;
+  bool done;
+
+  @override
+  void initState() {
+    super.initState();
+    this.done = widget.item.status == 'done';
+  }
 
   void handleTapDown(TapDownDetails details) {
     setState(() {
@@ -46,7 +53,7 @@ class _TodoItemWidgetState extends State<TodoItemWidget> {
   void onPressIcon(TodoItemModel item) {
     /// delay the disappear of item, view as if has animation
     setState(() {
-      item.done = !item.done;
+      this.done = !this.done;
     });
     Future.delayed(Duration(milliseconds: 200), () {
       widget.onPressIcon();
@@ -63,9 +70,9 @@ class _TodoItemWidgetState extends State<TodoItemWidget> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             IconButton(
-              icon: Icon(widget.item.done ? Icons.check_box : Icons.check_box_outline_blank),
+              icon: Icon(this.done ? Icons.check_box : Icons.check_box_outline_blank),
               onPressed: (){ onPressIcon(widget.item); },
-              color: widget.item.done ? Color(0xFFBDBDBD) : Color(0xFF757575),
+              color: this.done ? Color(0xFFBDBDBD) : Color(0xFF757575),
             ),
             /// make the GestureDetector widget has max width
             Expanded(
@@ -77,8 +84,8 @@ class _TodoItemWidgetState extends State<TodoItemWidget> {
                   widget.item.title,
                   overflow: TextOverflow.ellipsis,
                   style: TEXT_FONT.copyWith(
-                    decoration: widget.item.done ? TextDecoration.lineThrough : TextDecoration.none,
-                    color: widget.item.done ? Color(0xFFBDBDBD) : Colors.black,
+                    decoration: this.done ? TextDecoration.lineThrough : TextDecoration.none,
+                    color: this.done ? Color(0xFFBDBDBD) : Colors.black,
                   ),
                 ),
               ),
@@ -94,7 +101,7 @@ class _TodoItemWidgetState extends State<TodoItemWidget> {
     return Container(
       color: Color(0xFFEEEEEE),
       child: Icon(
-        widget.item.done ? Icons.check_box_outline_blank : Icons.check_box,
+        this.done ? Icons.check_box_outline_blank : Icons.check_box,
         color: Color(0xFFBDBDBD),
       ),
       alignment: Alignment.centerLeft,
@@ -114,7 +121,6 @@ class _TodoItemWidgetState extends State<TodoItemWidget> {
   /// delete item in storage
   handleDismissed(DismissDirection direction) {
     widget.handleSlide(direction);
-    // print(direction);
   }
 
   @override
@@ -122,7 +128,6 @@ class _TodoItemWidgetState extends State<TodoItemWidget> {
     return Dismissible(
       key: new Key(jsonEncode(widget.item)),
       onDismissed: this.handleDismissed,
-      // direction: DismissDirection.endToStart,
       background: this._buildBackground(),
       secondaryBackground: this._buildSecondaryBackground(),
       child: this._buildTodoContent(),

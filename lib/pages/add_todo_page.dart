@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:quiver/strings.dart';
-import 'package:time_manager/mock/server.dart';
+import 'package:time_manager/logic/todo_logic.dart';
+import 'package:time_manager/models/Todo.dart';
 import 'package:time_manager/style/font.dart';
 import 'package:time_manager/style/style.dart';
 
@@ -35,8 +36,10 @@ class _AddTodoState extends State<AddTodoPage> {
     String title = this._titleController.text;
     String detail = this._detailController.text;
     if (_formKey.currentState.validate()) {
-      Server.addTodo(title: title, detail: detail);
-      Navigator.pop(context);
+      final item = TodoItemModel(title: title, detail: detail, status: 'pending');
+      TodoLogic.addTodo(item).then((value) {
+        Navigator.pop(context);
+      });
     }
   }
 

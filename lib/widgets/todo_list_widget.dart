@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:time_manager/mock/server.dart';
+import 'package:time_manager/logic/todo_logic.dart';
 import 'package:time_manager/models/Todo.dart';
 import 'package:time_manager/widgets/empty_widget.dart';
 import 'package:time_manager/pages/todo_detail_page.dart';
@@ -32,16 +32,17 @@ class _TodoListState extends State<TodoListWidget> {
   }
 
   /// fetch list
-  getTodoList() {
-    var list = Server.getTodoListByDone(widget.status);
-    setState(() {
-      todoList = list;
+  getTodoList() async {
+    TodoLogic.getTodoListByStatus(widget.status).then((value) {
+      setState(() {
+        this.todoList = value;
+      });
     });
   }
 
   /// 修改当前待办的状态值
   onChangeStatus(TodoItemModel item) {
-    Server.changeTodoStatus(item);
+    TodoLogic.changeTodoStatus(item);
     this.getTodoList();
   }
 
@@ -56,10 +57,8 @@ class _TodoListState extends State<TodoListWidget> {
 
   /// 删除待办事项
   deleteItem(TodoItemModel item) {
-    Server.deleteTodo(item: item).then((_) {
-      this.setState(() {
-        this.getTodoList();
-      });
+    TodoLogic.deleteTodo(item).then((value) {
+      this.getTodoList();
     });
   }
 
@@ -93,7 +92,7 @@ class _TodoListState extends State<TodoListWidget> {
     );
   }
 
-  // called when user want to refresh the list
+  /// called when user want to refresh the list
   Future handleRefresh() {
     this.getTodoList();
     return Future(() {
