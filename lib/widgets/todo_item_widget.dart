@@ -10,12 +10,14 @@ class TodoItemWidget extends StatefulWidget {
   final onPressIcon;
   final onTapItem;
   final handleSlide;
+  final handleDismissConfirm;
 
   TodoItemWidget({
     @required this.item,
     @required this.onPressIcon,
     @required this.onTapItem,
     @required this.handleSlide,
+    this.handleDismissConfirm,
   });
 
   @override
@@ -123,10 +125,20 @@ class _TodoItemWidgetState extends State<TodoItemWidget> {
     widget.handleSlide(direction);
   }
 
+  Future<bool> confirmDismiss(DismissDirection direction) {
+    // return widget?.handleDismissConfirm(direction);
+    if (widget.handleDismissConfirm != null) {
+      return widget.handleDismissConfirm(direction);
+    } else {
+      return Future.value(true);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Dismissible(
       key: new Key(jsonEncode(widget.item)),
+      confirmDismiss: this.confirmDismiss,
       onDismissed: this.handleDismissed,
       background: this._buildBackground(),
       secondaryBackground: this._buildSecondaryBackground(),

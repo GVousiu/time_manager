@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:time_manager/logic/todo_logic.dart';
 import 'package:time_manager/models/Todo.dart';
+import 'package:time_manager/utils/global.dart';
 import 'package:time_manager/widgets/empty_widget.dart';
 import 'package:time_manager/pages/todo_detail_page.dart';
 import 'package:time_manager/widgets/todo_item_widget.dart';
@@ -55,6 +56,23 @@ class _TodoListState extends State<TodoListWidget> {
     });
   }
 
+  /// show delete confirm dialog: double check, if user choose to double check before delete in setting page
+  showDeleteDialog(TodoItemModel item) {
+    return AlertDialog(
+      content: Text('是否要删除该待办事项'),
+      actions: [
+        FlatButton(
+          onPressed: () { Navigator.pop(context); },
+          child: Text('取消'),
+        ),
+        FlatButton(
+          onPressed: () { this.deleteItem(item); Navigator.pop(context); },
+          child: Text('确定'),
+        ),
+      ],
+    );
+  }
+
   /// 删除待办事项
   deleteItem(TodoItemModel item) {
     TodoLogic.deleteTodo(item).then((value) {
@@ -81,6 +99,19 @@ class _TodoListState extends State<TodoListWidget> {
     );
   }
 
+  /// handle dismiss confirm logic
+  Future<bool> handleDismissConfirm(DismissDirection direction, TodoItemModel item) async {
+    if (direction == DismissDirection.endToStart && Global.isDoubleCheck) {
+      var isDismiss =  await showDialog(
+        context: context,
+        builder: (_) { return this.showDeleteDialog(item); },
+      );
+      return isDismiss;
+    } else {
+      return Future.value(true);
+    }
+  }
+
   /// 待办事项
   Widget _buildItem(BuildContext context, int index) {
     TodoItemModel item = todoList[index];
@@ -89,6 +120,7 @@ class _TodoListState extends State<TodoListWidget> {
       onPressIcon: () { onChangeStatus(item); },
       onTapItem: () { viewDetail(context, item); },
       handleSlide: (DismissDirection direction) { handleSlideItem(item, direction); },
+      handleDismissConfirm: (DismissDirection direction) { return handleDismissConfirm(direction, item); },
     );
   }
 

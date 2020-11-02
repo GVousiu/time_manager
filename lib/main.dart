@@ -1,6 +1,8 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
+import 'package:time_manager/provider/app_info.dart';
 import 'package:time_manager/utils/global.dart';
 import 'package:time_manager/pages/container_page.dart';
 
@@ -13,7 +15,13 @@ void main() {
    * ServicesBinding.defaultBinaryMessenger was accessed before the binding was initialized.
    */
   WidgetsFlutterBinding.ensureInitialized();
-  Global.init().then((e) => runApp(MyApp()));
+  Global.init().then((e) => runApp(
+    ChangeNotifierProvider(
+      // value: AppInfo(),
+      create: (_) => AppInfo(),
+      child: MyApp(),
+    ),
+  ));
   if (Platform.isAndroid) {
     //设置Android头部的导航栏透明
     SystemUiOverlayStyle systemUiOverlayStyle =
@@ -25,14 +33,22 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: '待办清单',
-      /// 设置整个app的主题：颜色
-      theme: ThemeData(
-        // primarySwatch: Colors.green,
-        primaryColor: Color(0xff617fdf),
+    return Consumer<AppInfo>(
+      builder: (BuildContext context, AppInfo appInfo, Widget child) => MaterialApp(
+        title: '待办清单',
+        /// 设置整个app的主题：颜色
+        theme: ThemeData(
+          primaryColor: Color(int.parse(appInfo.themeColor)),
+          buttonTheme: ButtonThemeData(
+            textTheme: ButtonTextTheme.primary,
+            colorScheme: ColorScheme.light(
+              primary: Color(int.parse(appInfo.themeColor)),
+            ),
+          ),
+        ),
+        home: child,
       ),
-      home: Scaffold(
+      child: Scaffold(
         /// avoid overflow when keyboard opened
         resizeToAvoidBottomPadding: false,
         body: ContainerPage(),

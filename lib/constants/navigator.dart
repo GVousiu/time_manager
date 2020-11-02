@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 const List<_Item> BOTTOM_NAVIGATOR_ITEM_LIST = [
   _Item(title: '首页', icon: Icons.home),
   _Item(title: '已完成', icon: Icons.playlist_add_check),
+  _Item(title: '设定', icon: Icons.settings),
 ];
 
 class _Item {

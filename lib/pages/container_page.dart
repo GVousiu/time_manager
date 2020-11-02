@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:time_manager/constants/navigator.dart';
 import 'package:time_manager/pages/done_list_page.dart';
 import 'package:time_manager/pages/home_page.dart';
+import 'package:time_manager/pages/setting_page.dart';
 import 'package:time_manager/style/font.dart';
 
 /// the container of the whole app, including bottom tab bar
@@ -27,12 +28,14 @@ class _ContainerPageState extends State<ContainerPage> {
       pages = [
         HomePage(),
         DoneListPage(),
+        SettingPage(),
       ];
     }
     if (itemList == null) {
       itemList = BOTTOM_NAVIGATOR_ITEM_LIST.map((item) => BottomNavigationBarItem(
         icon: Icon(item.icon),
         title: Text(item.title, style: BOTTOM_NAVIGATOR_FONT),
+        backgroundColor: Color(0xFFa3a3a3),
       )).toList();
     }
   }
@@ -68,7 +71,8 @@ class _ContainerPageState extends State<ContainerPage> {
         items: itemList,
         onTap: handleChangePage,
         currentIndex: _selectedIndex,
-        // fixedColor: Color.fromARGB(255, 0, 188, 96),
+        unselectedItemColor: Color(0xFFA3A3A3),
+        selectedItemColor: Theme.of(context).primaryColor,
         type: BottomNavigationBarType.fixed,
       ),
     );
